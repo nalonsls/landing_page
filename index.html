@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nalon.sls — Creator Monetization Agency</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#000;--white:#fff;--off:#f5f5f3;
+  --grey1:#111;--grey2:#1a1a1a;--grey3:#222;
+  --dim:rgba(255,255,255,.12);--muted:rgba(255,255,255,.4);--body:rgba(255,255,255,.65);
+  --serif:'Playfair Display',serif;--sans:'Outfit',sans-serif;
+}
+body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;border-bottom:1px solid var(--dim);background:rgba(0,0,0,.9);backdrop-filter:blur(20px)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{width:30px;height:30px;object-fit:contain;filter:invert(1)}
+.logo-text{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:4px;text-transform:uppercase}
+.logo-text span{opacity:.45}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);background:var(--black);padding:11px 24px;text-decoration:none;transition:opacity .2s}
+.nav-cta:hover{opacity:.85}
+
+/* TICKER */
+.ticker{margin-top:64px;padding:9px 0;background:var(--grey2);border-bottom:1px solid var(--dim);overflow:hidden}
+.ticker-track{display:flex;width:max-content;animation:tick 22s linear infinite}
+.tick-item{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);padding:0 32px;white-space:nowrap}
+.tick-sep{color:rgba(255,255,255,.15)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 24px 100px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(255,255,255,.04) 0%,transparent 70%)}
+.hero-line{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:32px}
+.hero-line::before,.hero-line::after{content:'';flex:1;max-width:60px;height:1px;background:rgba(255,255,255,.2)}
+.hero-tag{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.45)}
+h1{font-family:var(--serif);font-size:clamp(52px,8vw,120px);font-weight:900;line-height:.95;letter-spacing:-1px;margin-bottom:30px;position:relative;z-index:1}
+h1 em{font-style:italic;font-weight:400;color:rgba(255,255,255,.5)}
+.hero-sub{font-size:17px;font-weight:300;color:var(--body);max-width:520px;line-height:1.8;margin-bottom:48px;position:relative;z-index:1}
+.hero-sub strong{color:var(--white);font-weight:500}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.btn-primary{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--white);color:var(--black);padding:16px 36px;text-decoration:none;transition:opacity .2s,transform .15s}
+.btn-primary:hover{opacity:.87;transform:translateY(-2px)}
+.btn-ghost{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;background:transparent;color:var(--white);padding:15px 36px;border:1px solid var(--dim);text-decoration:none;transition:border-color .2s,transform .15s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.scroll-bar{width:1px;height:48px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.25));animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--dim);border-bottom:1px solid var(--dim)}
+.stat{padding:40px 24px;border-right:1px solid var(--dim);text-align:center}
+.stat:last-child{border-right:none}
+.stat-num{font-family:var(--serif);font-size:44px;font-weight:700;line-height:1;margin-bottom:6px}
+.stat-label{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+
+/* SECTIONS */
+.section{max-width:1120px;margin:0 auto;padding:100px 40px}
+.section-tag{font-size:9px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-tag::before{content:'';display:block;width:24px;height:1px;background:rgba(255,255,255,.25)}
+.section-title{font-family:var(--serif);font-size:clamp(38px,5vw,70px);font-weight:700;line-height:1.02;letter-spacing:-.5px;margin-bottom:16px}
+.section-title em{font-style:italic;font-weight:400;color:rgba(255,255,255,.45)}
+.section-desc{font-size:15px;color:var(--body);max-width:500px;margin-bottom:56px;line-height:1.8}
+.divider{height:1px;background:var(--dim)}
+
+/* SERVICES */
+.services{display:flex;flex-direction:column;gap:0;border:1px solid var(--dim)}
+.service{display:grid;grid-template-columns:220px 1fr 260px;border-bottom:1px solid var(--dim);position:relative;overflow:hidden;transition:background .25s}
+.service:last-child{border-bottom:none}
+.service:hover{background:var(--grey2)}
+.service-left{padding:40px 36px;border-right:1px solid var(--dim);display:flex;flex-direction:column;justify-content:center}
+.service-bar{height:2px;background:var(--white);margin-bottom:20px;width:32px;transition:width .4s ease}
+.service:hover .service-bar{width:100%}
+.service-step{font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:10px}
+.service-name{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1.1}
+.service-name em{font-style:italic;font-weight:400;color:rgba(255,255,255,.5)}
+.service-mid{padding:40px 36px;border-right:1px solid var(--dim)}
+.service-list{list-style:none}
+.service-list li{font-size:13px;font-weight:300;color:var(--body);padding:10px 0;border-bottom:1px solid var(--dim);display:flex;gap:12px;line-height:1.5}
+.service-list li:last-child{border-bottom:none}
+.service-list li::before{content:'—';color:rgba(255,255,255,.2);flex-shrink:0;font-size:11px}
+.service-right{padding:40px 32px;display:flex;flex-direction:column;justify-content:center}
+.service-result{font-size:13px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7}
+.service-result strong{display:block;color:var(--white);font-size:15px;font-weight:600;margin-bottom:6px}
+
+/* PROBLEMS */
+.problems-bg{background:var(--grey1);border-top:1px solid var(--dim);border-bottom:1px solid var(--dim)}
+.problems{display:flex;flex-direction:column;gap:0;border:1px solid var(--dim)}
+.problem{display:grid;grid-template-columns:220px 1fr 280px;border-bottom:1px solid var(--dim);transition:background .25s}
+.problem:last-child{border-bottom:none}
+.problem:hover{background:rgba(255,255,255,.02)}
+.problem-left{padding:40px 36px;border-right:1px solid var(--dim);display:flex;flex-direction:column;justify-content:center}
+.problem-num{font-family:var(--serif);font-size:64px;font-weight:900;color:rgba(255,255,255,.06);line-height:1;margin-bottom:8px}
+.problem-title{font-family:var(--serif);font-size:22px;font-weight:700;line-height:1.2;margin-bottom:6px}
+.problem-subtitle{font-size:10px;font-weight:500;letter-spacing:1.5px;color:rgba(255,255,255,.28);text-transform:uppercase;line-height:1.5}
+.problem-mid{padding:40px 36px;border-right:1px solid var(--dim)}
+.problem-list{list-style:none}
+.problem-list li{font-size:13px;font-weight:300;color:var(--body);padding:9px 0;border-bottom:1px solid var(--dim);display:flex;gap:10px;line-height:1.5}
+.problem-list li:last-child{border-bottom:none}
+.problem-list li::before{content:'×';color:rgba(255,255,255,.25);font-size:11px;flex-shrink:0;margin-top:2px}
+.problem-right{padding:40px 32px;display:flex;align-items:center}
+.problem-outcome{font-size:14px;font-weight:500;color:var(--white);line-height:1.7;font-family:var(--serif);font-style:italic}
+
+/* HOW */
+.steps{display:flex;flex-direction:column;gap:0;border:1px solid var(--dim)}
+.step{display:grid;grid-template-columns:80px 1fr 280px;border-bottom:1px solid var(--dim);transition:background .2s}
+.step:last-child{border-bottom:none}
+.step:hover{background:var(--grey1)}
+.step-num{display:flex;align-items:center;justify-content:center;border-right:1px solid var(--dim)}
+.step-num span{font-family:var(--serif);font-size:36px;font-weight:900;color:rgba(255,255,255,.08)}
+.step-body{padding:40px 36px;border-right:1px solid var(--dim)}
+.step-title{font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:10px}
+.step-desc{font-size:14px;color:var(--body);margin-bottom:20px;line-height:1.75;max-width:380px}
+.step-items{list-style:none}
+.step-items li{font-size:13px;color:var(--body);padding:7px 0;border-bottom:1px solid var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.step-items li::before{content:'→';color:rgba(255,255,255,.2);font-size:11px;flex-shrink:0;margin-top:2px}
+.step-result{padding:40px 32px;display:flex;flex-direction:column;justify-content:center}
+.step-result-label{font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:14px}
+.step-result-text{font-family:var(--serif);font-size:18px;font-style:italic;font-weight:400;color:rgba(255,255,255,.7);line-height:1.45}
+
+/* FLOW */
+.flow{max-width:1120px;margin:0 auto;padding:56px 40px 96px;display:flex;align-items:center;gap:0}
+.flow-node{display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;text-align:center}
+.flow-dot{width:10px;height:10px;border-radius:50%;background:var(--white)}
+.flow-seg{flex:1;height:1px;background:rgba(255,255,255,.18);margin-bottom:20px}
+.flow-label{font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+.flow-note{text-align:center;font-family:var(--serif);font-style:italic;font-size:16px;color:rgba(255,255,255,.35);margin-top:-36px;margin-bottom:72px}
+
+/* FREE GUIDE */
+.guide-bg{background:var(--grey1);border-top:1px solid var(--dim);border-bottom:1px solid var(--dim)}
+.guide{max-width:1120px;margin:0 auto;padding:100px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.guide-left .section-tag{margin-bottom:16px}
+.guide-title{font-family:var(--serif);font-size:clamp(32px,4.5vw,52px);font-weight:700;line-height:1.05;letter-spacing:-.5px;margin-bottom:20px}
+.guide-title em{font-style:italic;font-weight:400;color:rgba(255,255,255,.45)}
+.guide-desc{font-size:15px;color:var(--body);line-height:1.8;margin-bottom:32px;max-width:460px}
+.guide-points{list-style:none;margin-bottom:36px}
+.guide-points li{font-size:13px;color:var(--body);padding:8px 0;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.guide-points li::before{content:'✓';color:rgba(255,255,255,.5);flex-shrink:0;font-size:12px;margin-top:1px}
+.guide-card{border:1px solid var(--dim);background:var(--black);padding:56px 40px;text-align:center}
+.guide-card-label{font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.guide-card-title{font-family:var(--serif);font-size:28px;font-weight:900;line-height:1.1;margin-bottom:10px}
+.guide-card-sub{font-size:12px;color:var(--muted);margin-bottom:32px}
+.guide-card .btn-primary{width:100%;display:block;text-align:center}
+.guide-card-note{margin-top:16px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.25)}
+
+/* CTA */
+.cta{background:var(--white);padding:120px 40px;text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(0,0,0,.04),transparent);pointer-events:none;z-index:0}
+.cta-in{position:relative;z-index:2}
+.cta-tag{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(0,0,0,.3);margin-bottom:20px}
+h2.cta-title{font-family:var(--serif);font-size:clamp(48px,8vw,100px);font-weight:900;line-height:.92;letter-spacing:-2px;color:var(--black);margin-bottom:24px}
+h2.cta-title em{font-style:italic;font-weight:400;color:rgba(0,0,0,.4)}
+.cta-body{font-size:16px;font-weight:300;color:rgba(0,0,0,.55);max-width:480px;margin:0 auto 44px;line-height:1.8}
+.btn-dark{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--black);color:var(--white);padding:17px 42px;text-decoration:none;transition:opacity .2s,transform .15s;display:inline-block;position:relative;z-index:2}
+.btn-dark:hover{opacity:.82;transform:translateY(-2px)}
+.cta-note{margin-top:20px;font-size:11px;color:rgba(0,0,0,.3);letter-spacing:1px}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid var(--dim);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ft-logo{display:flex;align-items:center;gap:10px}
+.ft-logo img{width:22px;height:22px;object-fit:contain;filter:invert(1);opacity:.4}
+.ft-logo span{font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.ft-copy{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{animation:fadeUp .5s ease both;position:relative;z-index:2}
+h1{animation:fadeUp .6s .06s ease both;position:relative;z-index:2}
+.hero-sub{animation:fadeUp .6s .14s ease both;position:relative;z-index:2}
+.hero-btns{animation:fadeUp .6s .22s ease both;position:relative;z-index:10}
+.hero-btns a{position:relative;z-index:10;pointer-events:all}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .hero{padding:120px 20px 80px}
+  .stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:none}.stat:nth-child(3){border-top:1px solid var(--dim);border-right:1px solid var(--dim)}.stat:nth-child(4){border-top:1px solid var(--dim)}
+  .section{padding:72px 20px}.section-desc{margin-bottom:36px}
+  .services{grid-template-columns:1fr;border-left:none;border-right:none}.service{border-right:none;border-bottom:1px solid var(--dim)}.service:last-child{border-bottom:none}
+  .problems{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr}.step-num{display:none}.step-body{border-right:none;border-bottom:1px solid var(--dim)}.step-result{border-top:none}
+  .flow{padding:40px 20px 60px}
+  .guide{grid-template-columns:1fr;padding:72px 20px;gap:40px}
+  .cta{padding:80px 20px}
+  footer{padding:20px;flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="logo.jpg" alt="Nalon.sls">
+    <span class="logo-text">NALON<span>.SLS</span></span>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#problems">Problems</a>
+    <a href="#how">Process</a>
+    <a href="#guide">Free Guide</a>
+    <a href="https://cal.com/nalon.-sls-rohnaw/creator-growth-strategy-call" target="_blank" class="nav-cta">Book an Appointment</a>
+  </div>
+</nav>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick-item">Creator Monetization <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Landing Pages <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Income Systems <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Funnel Architecture <span class="tick-sep">◆</span></span>
+    <span class="tick-item">AI Automation <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Sponsorship Setup <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Creator Monetization <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Landing Pages <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Income Systems <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Funnel Architecture <span class="tick-sep">◆</span></span>
+    <span class="tick-item">AI Automation <span class="tick-sep">◆</span></span>
+    <span class="tick-item">Sponsorship Setup <span class="tick-sep">◆</span></span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"><span class="hero-tag">Creator Monetization Agency</span></div>
+  <h1>We Turn<br><em>Views</em> Into<br>Income.</h1>
+  <p class="hero-sub">For creators who are already growing — but missing the <strong>infrastructure</strong> to turn attention into consistent, scalable revenue.</p>
+  <div class="hero-btns">
+    <a href="https://cal.com/nalon.-sls-rohnaw/creator-growth-strategy-call" target="_blank" class="btn-primary">Book an Appointment →</a>
+    <a href="#services" class="btn-ghost">See What We Do</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">14d</div><div class="stat-label">Avg Build Time</div></div>
+  <div class="stat"><div class="stat-num">1:1</div><div class="stat-label">Custom Builds Only</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Creator-Focused</div></div>
+  <div class="stat"><div class="stat-num">0</div><div class="stat-label">Generic Templates</div></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<div id="services">
+  <div class="section">
+    <div class="section-tag">01 — What You Get</div>
+    <h2 class="section-title">Everything Included.<br><em>Nothing Missing.</em></h2>
+    <p class="section-desc">Three layers that remove the real friction between you and consistent income.</p>
+    <div class="services">
+      <div class="service">
+        <div class="service-left">
+          <div class="service-bar"></div>
+          <div class="service-step">Step 01 — Entry Point</div>
+          <div class="service-name">Opportunity<br><em>Mapping</em></div>
+        </div>
+        <div class="service-mid">
+          <ul class="service-list">
+            <li>Monetization gap analysis</li>
+            <li>Identifying hidden opportunities</li>
+            <li>Understanding what can be leveraged</li>
+            <li>Mapping your real income potential</li>
+          </ul>
+        </div>
+        <div class="service-right">
+          <div class="service-result"><strong>Find what you're missing</strong>and where your money actually is.</div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-left">
+          <div class="service-bar"></div>
+          <div class="service-step">Step 02 — Core Build</div>
+          <div class="service-name">Business<br><em>Foundation</em></div>
+        </div>
+        <div class="service-mid">
+          <ul class="service-list">
+            <li>Landing pages &amp; conversion systems</li>
+            <li>Digital stores and offer flows</li>
+            <li>Brand structure into a working system</li>
+            <li>Turning attention into income</li>
+          </ul>
+        </div>
+        <div class="service-right">
+          <div class="service-result"><strong>Turn attention into a business</strong>that can actually sell.</div>
+        </div>
+      </div>
+      <div class="service">
+        <div class="service-left">
+          <div class="service-bar"></div>
+          <div class="service-step">Step 03 — High-End</div>
+          <div class="service-name">Custom Systems<br><em>&amp; Automation</em></div>
+        </div>
+        <div class="service-mid">
+          <ul class="service-list">
+            <li>Custom automation systems</li>
+            <li>AI-powered workflows</li>
+            <li>Business process automation</li>
+            <li>Scalable infrastructure design</li>
+          </ul>
+        </div>
+        <div class="service-right">
+          <div class="service-result"><strong>Build systems that run your business</strong>and scale beyond manual work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PROBLEMS -->
+<div class="problems-bg" id="problems">
+  <div class="section">
+    <div class="section-tag">02 — Problems We Fix</div>
+    <h2 class="section-title">3 Layers of<br><em>Friction Removed</em></h2>
+    <p class="section-desc">Not a menu of services — three specific problem sets we eliminate for you.</p>
+    <div class="problems">
+      <div class="problem">
+        <div class="problem-left">
+          <div class="problem-num">01</div>
+          <div class="problem-title">Monetization Clarity</div>
+          <div class="problem-subtitle">Entry Point<br>We fix: understanding where money is</div>
+        </div>
+        <div class="problem-mid">
+          <ul class="problem-list">
+            <li>You don't know how to monetize your audience</li>
+            <li>You're guessing what your offer should be</li>
+            <li>You have attention but no revenue direction</li>
+            <li>You don't know which opportunity is real</li>
+            <li>You feel stuck with no clear starting point</li>
+          </ul>
+        </div>
+        <div class="problem-right">
+          <div class="problem-outcome">You understand exactly where your opportunities are.</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-left">
+          <div class="problem-num">02</div>
+          <div class="problem-title">System &amp; Infrastructure</div>
+          <div class="problem-subtitle">Core Build<br>We fix: turning attention into business</div>
+        </div>
+        <div class="problem-mid">
+          <ul class="problem-list">
+            <li>No landing page or conversion funnel</li>
+            <li>You can't consistently sell anything</li>
+            <li>Your business is scattered with no structure</li>
+            <li>No place to process payments or sales</li>
+            <li>You rely on manual, inconsistent processes</li>
+          </ul>
+        </div>
+        <div class="problem-right">
+          <div class="problem-outcome">A working system that converts attention into income.</div>
+        </div>
+      </div>
+      <div class="problem">
+        <div class="problem-left">
+          <div class="problem-num">03</div>
+          <div class="problem-title">Scale &amp; Automation</div>
+          <div class="problem-subtitle">High-End<br>We fix: scaling beyond manual effort</div>
+        </div>
+        <div class="problem-mid">
+          <ul class="problem-list">
+            <li>You're stuck doing everything manually</li>
+            <li>You can't scale without burning out</li>
+            <li>Workflows are slow and repetitive</li>
+            <li>No automation handling your business flow</li>
+            <li>Ready for growth but system can't support it</li>
+          </ul>
+        </div>
+        <div class="problem-right">
+          <div class="problem-outcome">Custom systems that scale your business automatically.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how">
+  <div class="section">
+    <div class="section-tag">03 — How It Works</div>
+    <h2 class="section-title">The System<br><em>in Action</em></h2>
+    <p class="section-desc">We move you through a structured path — each step builds on the last.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"><span>01</span></div>
+        <div class="step-body">
+          <div class="step-title">Discover the Opportunity</div>
+          <p class="step-desc">We break down your current position and find exactly where monetization is being missed.</p>
+          <ul class="step-items">
+            <li>Audit your audience, content, and setup</li>
+            <li>Identify your monetization gaps</li>
+            <li>Map opportunities you can act on now</li>
+          </ul>
+        </div>
+        <div class="step-result">
+          <div class="step-result-label">What you get</div>
+          <div class="step-result-text">"You know exactly where your money is hiding."</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span>02</span></div>
+        <div class="step-body">
+          <div class="step-title">Build the System</div>
+          <p class="step-desc">We build your business infrastructure so your audience has a clear path to purchase.</p>
+          <ul class="step-items">
+            <li>Landing pages and conversion flows</li>
+            <li>Digital store and offer setup</li>
+            <li>Connect everything into a clear funnel</li>
+          </ul>
+        </div>
+        <div class="step-result">
+          <div class="step-result-label">What you get</div>
+          <div class="step-result-text">"Your audience has a clear path from attention to income."</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"><span>03</span></div>
+        <div class="step-body">
+          <div class="step-title">Scale &amp; Automate</div>
+          <p class="step-desc">We upgrade your setup into a system that can run and grow without you doing everything.</p>
+          <ul class="step-items">
+            <li>Custom automation systems</li>
+            <li>AI-powered workflows</li>
+            <li>Scalable infrastructure that grows with you</li>
+          </ul>
+        </div>
+        <div class="step-result">
+          <div class="step-result-label">What you get</div>
+          <div class="step-result-text">"Your business grows without burning you out."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flow">
+  <div class="flow-node"><div class="flow-dot"></div><div class="flow-label">Entry Point</div></div>
+  <div class="flow-seg"></div>
+  <div class="flow-node"><div class="flow-dot"></div><div class="flow-label">Core Build</div></div>
+  <div class="flow-seg"></div>
+  <div class="flow-node"><div class="flow-dot"></div><div class="flow-label">High-End</div></div>
+</div>
+<p class="flow-note">Each level builds on the previous — you move through the system, not around it.</p>
+
+<div class="divider"></div>
+
+<!-- FREE GUIDE / WHOP -->
+<div class="guide-bg" id="guide">
+  <div class="guide">
+    <div class="guide-left">
+      <div class="section-tag">Start Here</div>
+      <h2 class="guide-title">Stop Feeding<br>the <em>Algorithm.</em></h2>
+      <p class="guide-desc">Before you book a call, read this. It breaks down exactly why creators stay stuck depending on the algorithm — and what Nalon.sls actually does to fix it.</p>
+      <ul class="guide-points">
+        <li>Why your views aren't turning into income</li>
+        <li>What Nalon.sls builds for creators like you</li>
+        <li>How the process works from call to launch</li>
+      </ul>
+    </div>
+    <div class="guide-card">
+      <div class="guide-card-label">Free Guide</div>
+      <div class="guide-card-title">Stop Feeding<br>the Algorithm</div>
+      <div class="guide-card-sub">5 minute read · Free on Whop</div>
+      <a href="https://whop.com/nalon/stop-feeding-the-algorithm" target="_blank" class="btn-primary">Get the Free Guide →</a>
+      <div class="guide-card-note">No spam · Instant access</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-in">
+    <div class="cta-tag">Ready to start?</div>
+    <h2 class="cta-title">Let's Build<br>Your <em>System.</em></h2>
+    <p class="cta-body">Book a free strategy call. We'll audit your setup and show you exactly where your opportunities are — and what to do about them.</p>
+    <a href="https://cal.com/nalon.-sls-rohnaw/creator-growth-strategy-call" target="_blank" class="btn-dark">Book an Appointment →</a>
+    <p class="cta-note">Free · No commitment · 30 minutes</p>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo">
+    <img src="logo.jpg" alt="Nalon.sls">
+    <span>Nalon.sls</span>
+  </div>
+  <span class="ft-copy">© 2026 Nalon.sls — Creator Monetization Agency</span>
+</footer>
+
+</body>
+</html>
